@@ -64,8 +64,8 @@ HorizonShop/
 
 Clone the repository
 
-git clone [https://github.com/mehmetbas34/HorizonShop.git]
-(https://github.com/mehmetbas34/HorizonShop.git)
+git clone https://github.com/mehmetbas34/HorizonShop.git
+https://github.com/mehmetbas34/HorizonShop.git
 Open in Visual Studio Open the .sln file in Visual Studio.
 
 Restore NuGet Packages Right-click on the solution -> Restore NuGet Packages.
