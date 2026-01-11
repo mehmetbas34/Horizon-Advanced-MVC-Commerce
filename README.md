@@ -5,7 +5,7 @@
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/05b2f03c-1f7a-4460-aab2-aee19b9b034c" />
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/19f7a71c-ebc8-474f-af33-1a36ed0e12fd" />
 
-🚀 Overview
+## 🚀 Overview
 HorizonShop is a robust, full-featured B2C e-commerce application built with **ASP.NET MVC 5** and **Entity Framework (Code First)**.
 
 Unlike simple CRUD apps, this project implements real-world e-commerce logic, including a **Hybrid Shopping Cart Architecture** that merges guest sessions with persistent databases, a transactional checkout system, and a custom-secured admin panel.
