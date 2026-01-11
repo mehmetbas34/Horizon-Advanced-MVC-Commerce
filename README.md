@@ -43,6 +43,14 @@ Unlike simple CRUD apps, this project implements real-world e-commerce logic, in
 - **Frontend:** Razor View Engine, HTML5, CSS3, JavaScript/jQuery
 - **Tools:** Visual Studio, Git
 
+## 👑 How to Create the First Admin Account
+- By default, all new registrations are assigned the "Customer" role for security reasons. To access the Admin Panel, you must manually promote a user.
+- Register a User: Go to the application in your browser, click Register, and create a new account (e.g., admin@horizon.com).
+- Open SQL Server: Open SQL Server Management Studio (SSMS) or use the Server Explorer in Visual Studio.
+- Find the User: Locate the Users table in the HorizonShop database.
+- Update Role: Find your newly created user row and manually change the Role column value from "Customer" to "Admin".
+- Log In: Go back to the website and log in. You will now have access to the Admin features (Product Management, User Roles, etc.) protected by the [AdminAuthorize] attribute .
+
 ## 📂 Project Structure
 ```text
 HorizonShop/
