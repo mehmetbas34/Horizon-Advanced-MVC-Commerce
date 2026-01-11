@@ -1,0 +1,56 @@
+@model IEnumerable<HorizonShop.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero" style="text-align: center;">
+        <h1>Categories</h1>
+        <p>Browse our wide range of product categories.</p>
+        <div style="width: 60px; height: 3px; background-color: #ffd333; margin: 15px auto;"></div>
+    </section>
+
+    <section>
+        @if (Model != null && Model.Any())
+        {
+            <div class="grid-container">
+                @foreach (var item in Model)
+                {
+                    string imgPath = "~/Content/images/product/electronic-devices.png";
+                    if (item.Name.ToLower().Contains("book")) { imgPath = "~/Content/images/product/books.png"; }
+                    else if (item.Name.ToLower().Contains("home") || item.Name.ToLower().Contains("garden")) { imgPath = "~/Content/images/product/home-garden.png"; }
+                    else if (item.Name.ToLower().Contains("beauty") || item.Name.ToLower().Contains("health")) { imgPath = "~/Content/images/product/Beauty.png"; }
+                    else if (item.Name.ToLower().Contains("fashion") || item.Name.ToLower().Contains("cloth")) { imgPath = "~/Content/images/product/clothes.png"; }
+                    if (!string.IsNullOrEmpty(item.ImageUrl)) { imgPath = "~/Content/" + item.ImageUrl; }
+
+                    <div class="card" onclick="location.href='@Url.Action("CategoryProducts", "Home", new { categoryId = item.CategoryId })'" style="cursor:pointer; transition: transform 0.3s ease;">
+
+                        <div style="height: 120px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                            <img src="@Url.Content(imgPath)" alt="@item.Name" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        </div>
+
+                        <h3>@item.Name</h3>
+
+                        <p style="color: #6c757d; font-size: 14px; margin-bottom: 20px;">
+                            @(item.Products != null ? item.Products.Count : 0) Products
+                        </p>
+
+                        <a href="@Url.Action("CategoryProducts", "Home", new { categoryId = item.CategoryId })" class="btn-submit" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 30px;">
+                            Browse
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center; padding:50px;">
+                <p>No categories found.</p>
+            </div>
+        }
+    </section>
+
+</main>

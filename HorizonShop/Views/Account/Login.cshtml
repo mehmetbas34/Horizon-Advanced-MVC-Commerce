@@ -1,0 +1,38 @@
+@model HorizonShop.Models.LoginViewModel
+
+@{ ViewBag.Title = "Login"; Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<main class="container con-1">
+    <section class="page-hero"><h1>Login</h1></section>
+    <section class="contact-grid" style="justify-content: center; display:flex;">
+        <div class="contact-card" style="width: 100%; max-width: 500px;">
+            <h2>Welcome Back</h2>
+            <p class="card-subtitle">Please login to your account.</p>
+            @if (ViewBag.Error != null)
+            {
+                <div style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
+                    @ViewBag.Error
+                </div>
+            }
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "contact-form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", style = "color:red; font-size:13px;" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger", style = "color:red; font-size:12px;" })
+                </div>
+                <button type="submit" class="btn-submit" style="width:100%">Login</button>
+            }
+            <p style="margin-top:15px; text-align:center;">
+                New here? <a href="@Url.Action("Register")" style="color:#ffd333; font-weight:bold;">Create an Account</a>
+            </p>
+        </div>
+    </section>
+</main>

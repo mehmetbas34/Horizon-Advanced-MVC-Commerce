@@ -1,0 +1,66 @@
+﻿@model IEnumerable<HorizonShop.Models.Product>
+
+@{
+    ViewBag.Title = "Search Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+        {
+            <h1>Search Results for: <span style="color:#ffd333;">"@ViewBag.SearchTerm"</span></h1>
+            <p>We found @Model.Count() products matching your search.</p>
+        }
+        else
+        {
+            <h1>Search</h1>
+            <p>Please enter a keyword to search.</p>
+        }
+        <div style="width: 60px; height: 3px; background-color: #ffd333; margin-top: 10px;"></div>
+    </section>
+
+    <section>
+        @if (Model != null && Model.Any())
+        {
+            <div class="grid-container">
+                @foreach (var item in Model)
+                {
+                    <div class="card" style="background: #fff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 20px; text-align: center; transition: all 0.3s ease;">
+
+                        <a href="@Url.Action("Details", "Products", new { id = item.ProductId })" style="text-decoration: none; color: inherit; display: block;">
+                            <div style="height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                                <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/Content/images/product/electronic-devices.png") : Url.Content("~/Content/" + item.ImageUrl))"
+                                     alt="@item.Name"
+                                     style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                            </div>
+                            <h3 style="font-size: 18px; font-weight: 700; color: #3d464d; margin: 10px 0;">@item.Name</h3>
+                        </a>
+
+                        <p class="price" style="font-size: 18px; font-weight: bold; color: #3d464d; margin: 5px 0 15px;">$@item.Price</p>
+
+                        <a href="@Url.Action("AddToCart", "Cart", new { productId = item.ProductId })"
+                           style="text-decoration: none; display: inline-block; background-color: #ffd333; color: #3d464d; padding: 10px 25px; border-radius: 4px; font-weight: bold;">
+                            Add to Cart
+                        </a>
+
+                        <div style="margin-top: 15px;">
+                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })" style="font-size: 13px; color: #999; text-decoration: underline;">View Details</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div style="text-align: center; padding: 60px; border: 1px solid #eee; border-radius: 8px; background-color: #fff;">
+                <i class="fas fa-search" style="font-size: 50px; color: #ddd; margin-bottom: 20px;"></i>
+                <h3 style="color: #3d464d;">No products found.</h3>
+                <p style="color: #666; margin-bottom: 20px;">Try searching with different keywords.</p>
+                <a href="@Url.Action("Index", "Home")" class="btn-submit" style="text-decoration: none; display: inline-block; width: auto; padding: 10px 20px;">Back to Home</a>
+            </div>
+        }
+    </section>
+
+</main>

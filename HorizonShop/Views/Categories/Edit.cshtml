@@ -1,0 +1,64 @@
+﻿@model HorizonShop.Models.Category
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <section class="page-hero">
+        <h1>Manage Categories</h1>
+    </section>
+
+    <section class="contact-grid" style="justify-content: center; display:flex;">
+        <div class="contact-card crud-form-container">
+            <h2>Edit Category</h2>
+            <hr />
+
+            @using (Html.BeginForm("Edit", "Categories", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CategoryId)
+
+                    <div class="form-group">
+                        <label class="form-label">Category Name</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control-custom" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Category Image</label>
+                        <div class="col-md-10">
+                            <input type="file" name="ImageFile" class="form-control-custom" />
+                            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <div style="margin-top:10px;">
+                                    <p style="font-size:12px; margin-bottom:5px;">Current Image:</p>
+                                    <img src="~/Content/@Model.ImageUrl" width="100" style="border:1px solid #ddd; padding:3px; border-radius:4px;" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="margin-top:20px;">
+                            <input type="submit" value="Save Changes" class="btn-submit" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="@Url.Action("Index")" class="action-link edit">Back to List</a>
+            </div>
+        </div>
+    </section>
+</main>
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }

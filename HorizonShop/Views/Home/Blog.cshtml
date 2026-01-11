@@ -1,0 +1,70 @@
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <div class="breadcrumb" style="margin-bottom: 20px; font-size: 14px; color: #6c757d;">
+        <a href="@Url.Action("Index", "Home")" style="color: #007bff; text-decoration: none;">Home</a> &gt;
+        <span style="color: #6c757d;">Blog</span> &gt;
+        <span>Latest News</span>
+    </div>
+
+    <h2 style="margin-bottom: 30px;">Latest News</h2>
+
+    <div class="blog-container">
+
+        <div class="blog-main-content">
+            <div class="blog-list-container">
+
+                <div class="blog-list-item">
+                    <a href="#" class="blog-list-item-image">
+                        <img src="~/Content/images/news/news1.png" alt="ChatGPT AI News">
+                    </a>
+                    <div class="blog-list-item-content">
+                        <div class="article-meta">
+                            <span>Special Offers</span> • <span>29 April 2025</span>
+                        </div>
+                        <h3><a href="#">ChatGPT AI bot adds shopping to its powers</a></h3>
+                        <p>This is a short summary of the blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+
+                    </div>
+                </div>
+                <br />
+                <div class="blog-list-item">
+                    <a href="#" class="blog-list-item-image">
+                        <img src="~/Content/images/news/news2.png" alt="Trendyol News">
+                    </a>
+                    <div class="blog-list-item-content">
+                        <div class="article-meta">
+                            <span>Reviews</span> • <span>10 October 2025</span>
+                        </div>
+                        <h3><a href="#">“Made in Türkiye” Products are on the World Stage with Trendyol</a></h3>
+                        <p>Another short summary. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat...</p>
+                        <a href="#" class="read-more-btn">Read More</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="blog-sidebar">
+            <div class="sidebar-widget">
+                <h4>About Blog</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt, erat in egestas, erat faucibus purus, eget viverra nulla sem vitae neque. Quisque id sodales libero.</p>
+            </div>
+
+            <div class="sidebar-widget">
+                <h4>Follow Us</h4>
+                <div class="sidebar-social">
+                    <a href="#"><img src="~/Content/images/facebook.png" alt="Facebook"></a>
+                    <a href="#"><img src="~/Content/images/x.png" alt="Twitter"></a>
+                    <a href="#"><img src="~/Content/images/insta.png" alt="Instagram"></a>
+                    <a href="#"><img src="~/Content/images/youtube.png" alt="YouTube"></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>

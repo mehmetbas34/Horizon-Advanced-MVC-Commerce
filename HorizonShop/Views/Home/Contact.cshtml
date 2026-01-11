@@ -1,0 +1,78 @@
+﻿@model HorizonShop.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1 contact-page">
+    <section class="page-hero">
+        <h1>Contact Horizon</h1>
+        <p>We’d love to hear from you! Whether you have a question about orders, features or anything else, our team will answer you.</p>
+    </section>
+
+    <section class="contact-grid">
+
+        <div class="contact-card">
+            <h2>Get In Touch</h2>
+            <p class="card-subtitle">Fill in the form and we will route your message to the right person.</p>
+
+            @if (ViewBag.Message != null)
+            {
+                <div style="padding:10px; background-color:#d4edda; color:#155724; border-radius:4px; margin-bottom:20px;">
+                    @ViewBag.Message
+                </div>
+            }
+
+            @using (Html.BeginForm("Contact", "Home", FormMethod.Post, new { @class = "contact-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control-custom", placeholder = "Enter your name" })
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control-custom", placeholder = "Enter your email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Message)
+                    @Html.TextAreaFor(m => m.Message, new { @class = "form-control-custom", rows = "5", placeholder = "Write your message..." })
+                    @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                </div>
+
+                <button type="submit" class="btn-submit">Send Message</button>
+                <p class="form-meta" style="margin-top: 15px; font-size: 13px; color: #999;">We usually reply within 1–2 business days.</p>
+            }
+        </div>
+
+        <div class="contact-card info-card">
+            <h2>Our Office</h2>
+            <ul class="contact-info">
+                <li><strong>Address:</strong> E5 Highway, Bakırköy 34158, İstanbul</li>
+                <li><strong>Phone:</strong> (123)-456-789</li>
+                <li><strong>Email:</strong> support@horizon.com</li>
+                <li><strong>Working Hours:</strong> Mon–Fri, 10:00 – 19:00</li>
+            </ul>
+
+            <h3 class="map-title" style="margin-top: 20px; font-size: 18px; margin-bottom: 10px;">Find us on the map</h3>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.6504900170277!2d28.82903657655457!3d40.99036357135277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa366de722031%3A0x9c9b3a9036337335!2zxLBzdGFuYnVsIEvDvGx0w7xyIMOcbml2ZXJzaXRlc2k!5e0!3m2!1str!2str!4v1709555555555!5m2!1str!2str"
+                        style="width:100%;" height="230" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="support-box" style="margin-top: 20px; font-size: 14px; color: #666;">
+                <p>Need faster help? Check our <a href="#" style="color: #ffd333; font-weight: bold; text-decoration: none;">Help Center</a>.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

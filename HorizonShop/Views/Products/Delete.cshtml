@@ -1,0 +1,50 @@
+﻿@model HorizonShop.Models.Product
+
+@{
+    ViewBag.Title = "Delete Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh;">
+
+        <h2 style="color: #3d464d; font-weight: 700; margin-bottom: 30px;">Delete Product</h2>
+
+        <div class="contact-card" style="width: 100%; max-width: 400px; text-align: center; padding: 40px; border-top: 5px solid #dc3545; border-radius: 8px;">
+
+            <div style="margin-bottom: 20px;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: #dc3545;"></i>
+            </div>
+
+            <h3 style="margin: 0 0 15px 0; color: #3d464d; font-weight: 700;">Are you sure?</h3>
+
+            <p style="color: #6c757d; margin-bottom: 20px; font-size: 15px;">
+                You are about to delete the following product:
+            </p>
+
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 6px; margin-bottom: 30px;">
+                <span style="font-weight: 700; color: #3d464d; font-size: 18px;">@Model.Name</span>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div style="display: flex; gap: 15px; justify-content: center;">
+
+                    <button type="submit" class="btn-submit" style="background-color: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 4px; font-weight: 600; width: auto; cursor: pointer;">
+                        Yes, Delete it
+                    </button>
+
+                    <a href="@Url.Action("Index")" style="background-color: #e9ecef; color: #3d464d; text-decoration: none; padding: 12px 25px; border-radius: 4px; font-weight: 600; display: inline-block;">
+                        Cancel
+                    </a>
+
+                </div>
+            }
+        </div>
+
+    </div>
+
+</main>

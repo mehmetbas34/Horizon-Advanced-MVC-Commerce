@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "_CategoryMenu";
+}
+
+
+@model IEnumerable<HorizonShop.Models.Category>
+
+<ul class="category-links">
+    @if (Model != null)
+    {
+        foreach (var category in Model)
+        {
+            <li>
+                <a href="@Url.Action("CategoryProducts", "Home", new { categoryId = category.CategoryId })">
+                    @category.Name
+                </a>
+            </li>
+        }
+    }
+</ul>

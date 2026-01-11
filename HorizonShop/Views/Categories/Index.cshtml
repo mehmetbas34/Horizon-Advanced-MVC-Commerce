@@ -1,0 +1,62 @@
+﻿@model IEnumerable<HorizonShop.Models.Category>
+
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <div class="page-header-row">
+        <section class="page-hero" style="margin-bottom:0;">
+            <h1>Category List</h1>
+            <p style="margin-bottom:0;">Manage your product categories from here.</p>
+        </section>
+
+        <a href="@Url.Action("Create")" class="btn-add-new">
+            + Create New Category
+        </a>
+    </div>
+
+    <div class="contact-card" style="padding: 0; overflow: hidden;">
+
+        @if (Model != null && Model.Any())
+        {
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Name)</th>
+                        <th style="text-align:right; width:200px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                            </td>
+                            <td style="text-align:right;">
+                                <a href="@Url.Action("Edit", new { id=item.CategoryId })" class="action-link edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <span>|</span>
+                                <a href="@Url.Action("Delete", new { id=item.CategoryId })" class="action-link delete">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div style="padding: 50px; text-align: center; color: #6c757d;">
+                <i class="fas fa-folder-open" style="font-size: 40px; margin-bottom: 15px; color:#ddd;"></i>
+                <p>No categories found.</p>
+                <a href="@Url.Action("Create")" style="color:#ffd333; font-weight:bold;">Create one now</a>
+            </div>
+        }
+    </div>
+</main>

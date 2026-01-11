@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HorizonShop.Models.CartItem>
+
+<div class="dropcart" style="padding: 15px;">
+
+    <div class="dropcart-products-list" style="max-height: 300px; overflow-y: auto; margin-bottom:15px;">
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div style="display:flex; align-items:center; gap:15px; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:10px;">
+                    <div style="width:50px; height:50px; flex-shrink:0;">
+                        <img src="@(string.IsNullOrEmpty(item.Product.ImageUrl) ? Url.Content("~/Content/images/product/electronic-devices.png") : Url.Content("~/Content/" + item.Product.ImageUrl))"
+                             alt="@item.Product.Name"
+                             style="width:100%; height:100%; object-fit:contain; border:1px solid #eee;">
+                    </div>
+
+                    <div style="flex:1; overflow:hidden;">
+                        <p style="margin:0; font-size:13px; font-weight:bold; color:#333; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                            @item.Product.Name
+                        </p>
+                        <p style="margin:0; font-size:12px; color:#666;">
+                            @item.Quantity x <span style="color:#ffd333;">$@item.Product.Price</span>
+                        </p>
+                    </div>
+
+                    <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.Id })" style="color:#cc0000; font-weight:bold; text-decoration:none; padding:0 5px;">
+                        &times;
+                    </a>
+                </div>
+            }
+        }
+        else
+        {
+            <p style="text-align:center; color:#999; padding:20px;">Your cart is empty.</p>
+        }
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div style="border-top:2px solid #eee; padding-top:10px;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:15px; color:#333;">
+                <span>Total:</span>
+                <span style="color:#ffd333;">$@Model.Sum(x => x.Product.Price * x.Quantity)</span>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <a href="@Url.Action("Index", "Cart")" class="btn-submit" style="flex:1; text-align:center; text-decoration:none; background:#f0f0f0; color:#333; font-size:13px;">View Cart</a>
+                <a href="@Url.Action("Index", "Checkout")" class="btn-submit" style="flex:1; text-align:center; text-decoration:none; font-size:13px;">Checkout</a>
+            </div>
+        </div>
+    }
+</div>

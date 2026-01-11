@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Delivery Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        <h1>Delivery Information</h1>
+        <p>
+            Fast, safe, and reliable shipping options for you.
+            We ensure your package arrives on time, every time, with transparent tracking.
+        </p>
+    </section>
+
+    <section class="about-stats">
+        <div class="stat">
+            <span class="stat-number">24h</span>
+            <span class="stat-label">Dispatch Time</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">$0</span>
+            <span class="stat-label">Free Shipping Over $50</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">30</span>
+            <span class="stat-label">Days Return Policy</span>
+        </div>
+    </section>
+
+    <section class="about-grid">
+
+        <div class="about-block">
+            <h2>
+                <i class="fas fa-truck" style="color:#ffd333; margin-right:10px;"></i>
+                Standard Delivery
+            </h2>
+            <p style="margin-bottom:5px;"><strong>Cost:</strong> $5.00 (Free over $50)</p>
+            <p style="margin-bottom:15px;"><strong>Est. Time:</strong> 3-5 Business Days</p>
+            <p>
+                Reliable delivery for non-urgent orders. Delivered directly to your doorstep with standard tracking.
+            </p>
+        </div>
+
+        <div class="about-block">
+            <h2>
+                <i class="fas fa-shipping-fast" style="color:#ffd333; margin-right:10px;"></i>
+                Express Shipping
+            </h2>
+            <p style="margin-bottom:5px;"><strong>Cost:</strong> $15.00</p>
+            <p style="margin-bottom:15px;"><strong>Est. Time:</strong> 1-2 Business Days</p>
+            <p>
+                Get your products faster with our priority shipping service. Ideal for gifts and urgent needs.
+            </p>
+        </div>
+
+        <div class="about-block">
+            <h2>
+                <i class="fas fa-box-open" style="color:#ffd333; margin-right:10px;"></i>
+                Same Day Delivery
+            </h2>
+            <p style="margin-bottom:5px;"><strong>Cost:</strong> $25.00</p>
+            <p style="margin-bottom:15px;"><strong>Est. Time:</strong> Today (Order < 12 PM)</p>
+            <p>
+                Available only in select cities. The fastest way to get what you need right now.
+            </p>
+        </div>
+
+        <div class="about-block">
+            <h2> <i class="fas fa-globe-americas" style="color:#ffd333; margin-right:10px;"></i>International</h2>
+
+            <p style="margin-bottom:5px;"><strong>Cost:</strong> Calculated at checkout</p>
+            <p style="margin-bottom:15px;"><strong>Est. Time:</strong> 7-14 Business Days</p>
+            <p>
+                We ship globally to over 200 countries. Customs duties may apply depending on the destination.
+            </p>
+        </div>
+
+    </section>
+
+    <section class="about-grid">
+        <div class="about-block">
+            <h2>Return Policy</h2>
+            <p>
+                If you are not completely satisfied with your purchase, you can return the item within <strong>30 days</strong> of receipt.
+                Items must be unused and in original packaging. Refunds are processed within 5 business days.
+            </p>
+        </div>
+
+        <div class="about-block">
+            <h2>Need Help?</h2>
+            <p>
+                Have questions about your order status? Please check your
+                <a href="@Url.Action("Orders", "Account")" style="color:#ffd333; font-weight:bold; text-decoration:none;">My Orders</a>
+                page for tracking information or contact our 24/7 support team.
+            </p>
+        </div>
+    </section>
+
+</main>

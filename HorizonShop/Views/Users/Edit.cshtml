@@ -1,0 +1,45 @@
+﻿@model HorizonShop.Models.User
+
+@{
+    ViewBag.Title = "Edit User Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <section class="page-hero">
+        <h1>Edit User Role</h1>
+    </section>
+
+    <section class="contact-grid" style="justify-content: center; display:flex;">
+        <div class="contact-card crud-form-container">
+            <h2>@Html.DisplayFor(m => m.FirstName) @Html.DisplayFor(m => m.LastName)</h2>
+            <p class="card-subtitle">Update the role for: <strong>@Html.DisplayFor(m => m.Email)</strong></p>
+            <hr />
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.UserId) <div class="form-horizontal">
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Role, "Select Role", new { @class = "form-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.Role, (IEnumerable<SelectListItem>)ViewBag.RoleList, new { @class = "form-control-custom" })
+                            @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="margin-top:20px;">
+                            <input type="submit" value="Update Role" class="btn-submit" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="@Url.Action("Index")" class="action-link edit">Back to User List</a>
+            </div>
+        </div>
+    </section>
+</main>

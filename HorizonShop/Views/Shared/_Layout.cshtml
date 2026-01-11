@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title | Horizon</title>
+    <link rel="icon" type="image/png" href="~/Content/images/icon.png">
+
+    <link rel="stylesheet" href="~/Content/css/style.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="topbar">
+            <div class="container">
+                <div class="topbar-links-left">
+                    <a href="@Url.Action("About", "Home")">About Us</a>
+                    <a href="@Url.Action("Contact", "Home")">Contact</a>
+                    <a href="@Url.Action("Blog", "Home")">Blog</a>
+
+                    @if (Session["UserRole"] != null && Session["UserRole"].ToString() == "Admin")
+                    {
+                        <a href="@Url.Action("Index", "Categories")" style="color:#ffd333; font-weight:bold;">Manage: Categories</a>
+                        <a href="@Url.Action("Index", "Products")" style="color:#ffd333; font-weight:bold;">Manage: Products</a>
+
+                        <a href="@Url.Action("Index", "Users")" style="color:#ffd333; font-weight:bold;">Manage: Users</a>
+                    }
+                </div>
+                <div class="topbar-links-right">
+                    <div class="topbar-dropdown js-dropdown">
+                        <a href="#" class="topbar-dropdown-toggle js-dropdown-toggle">
+                            @(Session["UserEmail"] != null ? Session["UserEmail"].ToString() : "My Account")
+                        </a>
+                        <div class="topbar-dropdown-menu">
+                            @if (Session["UserId"] == null)
+                            {
+                                <a href="@Url.Action("Login", "Account")">Login</a>
+                                <a href="@Url.Action("Register", "Account")">Register</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Orders", "Account")">Orders</a>
+                                <a href="@Url.Action("Addresses", "Account")">Addresses</a>
+                                <a href="@Url.Action("Logout", "Account")">Logout</a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="topbar-dropdown js-dropdown">
+                        <a href="#" class="topbar-dropdown-toggle js-dropdown-toggle">Language: EN</a>
+                        <div class="topbar-dropdown-menu">
+                            <a href="#">English</a>
+                            <a href="#">Türkçe</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="nav-panel">
+                <div class="category">
+                    <div class="category-body">
+                        @Html.Action("CategoryMenu", "Home")
+                    </div>
+                    <button class="category-button">SHOP BY CATEGORY</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-top">
+            <div class="container">
+                <div class="logo-and-search">
+                    <div class="logo">
+                        <a href="@Url.Action("Index", "Home")">
+                            <img src="~/Content/images/logo.png" alt="Horizon Home Page">
+                        </a>
+                    </div>
+                    <div class="search-bar">
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { style = "display:flex; width:100%; border:1px solid #ced4da; border-radius:4px;" }))
+                        {
+                            <input type="text" name="searchTerm" class="search-input" placeholder="Search products..." required>
+                            <button type="submit" class="search-button">
+                                <img src="~/Content/images/search-icon.png" style="width:20px;">
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-bottom">
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <li><a href="@Url.Action("Category", "Home")">Category</a></li>
+                        <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                        <li><a href="@Url.Action("Blog", "Home")">Blog</a></li>
+                        <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="header-indicators">
+                    <div class="indicator indicator--trigger--click">
+                        <a href="@Url.Action("Index", "Cart")" class="indicator-link">
+                            <img src="~/Content/images/checkout.png" alt="Sepet" class="cart-icon-img">
+                            <span class="indicator-value">@((Session["CartCount"] ?? 0))</span>
+                        </a>
+
+                        <div class="indicator-dropdown">
+                            @Html.Action("MiniCart", "Cart")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="container con-1">
+        @RenderBody()
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-widgets">
+                <div class="footer-widget">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contacts">
+                        <li><i class="fa-solid fa-location-dot"></i> <span>E5 Highway, Bakırköy 34158 Istanbul</span></li>
+                        <li><i class="fa-solid fa-envelope"></i> <span>iku@edu.tr</span></li>
+                        <li><i class="fa-solid fa-phone"></i> <span>(123)-456-789</span></li>
+                        <li><i class="fa-solid fa-clock"></i> <span>Mon-Fri 10:00pm - 7:00pm</span></li>
+                    </ul>
+                </div>
+
+                <div class="footer-widget">
+                    <h4>Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="@Url.Action("About", "Home")">About Us</a></li>
+                        <li><a href="@Url.Action("Delivery", "Home")">Delivery Information</a></li>
+                        <li><a href="@Url.Action("Privacy", "Home")">Privacy Policy</a></li>
+                        <li><a href="@Url.Action("Contact", "Home")">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-widget">
+                    <h4>Newsletter</h4>
+                    <p>Exclusive Discounts: Access special offers reserved just for our subscribers.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Email Address...">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <h5>Follow us on social networks</h5>
+                    <div class="social-links">
+                        <a href="#" class="social-facebook"><img src="~/Content/images/facebook.png" alt=""></a>
+                        <a href="#" class="social-twitter"><img src="~/Content/images/x.png" alt=""></a>
+                        <a href="#" class="social-youtube"><img src="~/Content/images/youtube.png" alt=""></a>
+                        <a href="#" class="social-instagram"><img src="~/Content/images/insta.png" alt=""></a>
+                    </div>
+                    <div class="footer-payment-icons">
+                        <img src="~/Content/images/payments.png" alt="Payment Methods">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Horizon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.x.x.min.js"></script>
+
+    <script src="~/Content/js/script.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

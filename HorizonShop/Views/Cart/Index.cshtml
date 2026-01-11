@@ -1,0 +1,178 @@
+@model IEnumerable<HorizonShop.Models.CartItem>
+
+@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    decimal subTotal = ViewBag.SubTotal != null ? (decimal)ViewBag.SubTotal : (Model != null ? Model.Sum(x => x.Product.Price * x.Quantity) : 0);
+
+    decimal discount = ViewBag.DiscountAmount != null ? (decimal)ViewBag.DiscountAmount : 0;
+
+    decimal shipping = subTotal > 0 ? 25.00m : 0;
+
+    decimal finalTotal = (subTotal - discount) + shipping;
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        <h1>Shopping Cart</h1>
+    </section>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="checkout-grid">
+
+            <div class="contact-card" style="padding: 0; overflow: hidden;">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align:center;">
+                                    <img src="@(string.IsNullOrEmpty(item.Product.ImageUrl) ? Url.Content("~/Content/images/product/electronic-devices.png") : Url.Content("~/Content/" + item.Product.ImageUrl))"
+                                         style="width:60px; height:60px; object-fit:contain;">
+                                </td>
+
+                                <td>
+                                    <a href="@Url.Action("Details", "Products", new { id = item.ProductId })" style="color:#3d464d; font-weight:bold; text-decoration:none;">
+                                        @item.Product.Name
+                                    </a>
+                                    <div style="font-size:12px; color:#999; margin-top:5px;">
+                                        Category: @(item.Product.Category != null ? item.Product.Category.Name : "-")
+                                    </div>
+                                </td>
+
+                                <td>$@item.Product.Price</td>
+
+                                <td>
+                                    <div style="display:flex; align-items:center; border:1px solid #ddd; border-radius:4px; width:fit-content;">
+                                        <a href="@Url.Action("DecreaseQuantity", "Cart", new { id = item.Id })"
+                                           style="display:block; padding:5px 12px; background:#f8f9fa; color:#333; text-decoration:none; border-right:1px solid #ddd;">-</a>
+
+                                        <span style="display:block; padding:5px 12px; font-weight:bold; min-width:20px; text-align:center;">@item.Quantity</span>
+
+                                        <a href="@Url.Action("IncreaseQuantity", "Cart", new { id = item.Id })"
+                                           style="display:block; padding:5px 12px; background:#ffd333; color:#333; text-decoration:none; border-left:1px solid #ddd;">+</a>
+                                    </div>
+                                </td>
+
+                                <td style="font-weight:bold; color:#3d464d;">
+                                    $@(item.Product.Price * item.Quantity)
+                                </td>
+
+                                <td style="text-align:center;">
+                                    <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.Id })" class="action-link delete" title="Remove">
+                                        <i class="fas fa-times" style="font-size:18px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div style="padding:20px;">
+                    <a href="@Url.Action("Index", "Home")" style="text-decoration:none; color:#666; font-weight:bold;">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
+                    </a>
+                </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:20px;">
+
+                @if (TempData["Error"] != null)
+                {
+                    <div style="color: #721c24; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px;">
+                        <i class="fas fa-exclamation-circle"></i> @TempData["Error"]
+                    </div>
+                }
+                @if (TempData["Success"] != null)
+                {
+                    <div style="color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 4px;">
+                        <i class="fas fa-check-circle"></i> @TempData["Success"]
+                    </div>
+                }
+
+                <div class="contact-card" style="height:fit-content; padding:20px;">
+                    <h3 style="margin-top:0; color:#333; font-size:18px; margin-bottom:15px;">Have a coupon?</h3>
+
+                    @if (ViewBag.AppliedCoupon != null)
+                    {
+                        <div style="background:#f0fff4; border:1px solid #c3e6cb; padding:10px; border-radius:4px; display:flex; justify-content:space-between; align-items:center;">
+                            <span style="color:#28a745; font-weight:bold;">
+                                <i class="fas fa-ticket-alt"></i> @ViewBag.AppliedCoupon
+                            </span>
+                            <a href="@Url.Action("RemoveCoupon", "Cart")" style="color:#dc3545; font-size:13px; text-decoration:underline;">Remove</a>
+                        </div>
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("ApplyCoupon", "Cart", FormMethod.Post, new { style = "display:flex;" }))
+                        {
+                            <input type="text" name="couponCode" placeholder="HORIZON20" required
+                                   style="flex:1; padding:10px; border:1px solid #ced4da; border-radius:4px 0 0 4px; outline:none;">
+                            <button type="submit" style="background:#3d464d; color:#fff; border:none; padding:10px 15px; border-radius:0 4px 4px 0; cursor:pointer; font-weight:bold;">
+                                Apply
+                            </button>
+                        }
+                    }
+                </div>
+
+                <div class="contact-card" style="height:fit-content;">
+                    <h3 style="margin-top:0; border-bottom:1px solid #eee; padding-bottom:15px; color:#333;">Cart Totals</h3>
+
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#666;">
+                        <span>Subtotal</span>
+                        <span style="font-weight:bold; color:#333;">$@subTotal</span>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#666;">
+                        <span>Shipping</span>
+                        <span style="font-weight:bold; color:#333;">$@shipping</span>
+                    </div>
+
+                    @if (discount > 0)
+                    {
+                        <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#28a745; background:#f0fff4; padding:5px; border-radius:4px;">
+                            <span>Discount (@Session["DiscountRate"]%)</span>
+                            <span style="font-weight:bold;">-$@discount</span>
+                        </div>
+                    }
+
+                    <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
+
+                    <div style="display:flex; justify-content:space-between; font-size:20px; font-weight:bold; margin-bottom:20px;">
+                        <span style="color:#333;">Total</span>
+                        <span style="color:#ffd333;">$@finalTotal</span>
+                    </div>
+
+                    <a href="@Url.Action("Index", "Checkout")" class="btn-submit" style="display:block; text-align:center; text-decoration:none;">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="contact-card" style="text-align: center; padding: 60px;">
+            <i class="fas fa-shopping-cart" style="font-size: 60px; color: #ddd; margin-bottom: 20px;"></i>
+            <h2 style="color: #3d464d;">Your cart is currently empty.</h2>
+            <a href="@Url.Action("Index", "Home")" class="btn-submit" style="text-decoration: none; display: inline-block; width: auto; padding: 12px 40px; margin-top:20px;">
+                Return to Shop
+            </a>
+        </div>
+    }
+
+</main>

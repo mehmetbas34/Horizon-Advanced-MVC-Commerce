@@ -1,0 +1,52 @@
+﻿@model IEnumerable<HorizonShop.Models.Order>
+
+@{
+    ViewBag.Title = "My Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <section class="page-hero">
+        <h1>My Orders</h1>
+        <p>Track your past purchases and order status.</p>
+    </section>
+
+    <div class="contact-card" style="padding: 0; overflow: hidden;">
+        @if (Model != null && Model.Any())
+        {
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>#@item.OrderId</td>
+                            <td>@item.OrderDate.ToString("dd MMM yyyy")</td>
+                            <td style="font-weight:bold; color:#3d464d;">$@item.TotalAmount</td>
+                            <td>
+                                <span style="padding:5px 10px; background:#e8f5e9; color:#2e7d32; border-radius:15px; font-size:12px; font-weight:bold;">
+                                    @item.Status
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div style="padding: 50px; text-align: center; color: #6c757d;">
+                <i class="fas fa-shopping-bag" style="font-size: 40px; margin-bottom: 15px; color:#ddd;"></i>
+                <p>You haven't placed any orders yet.</p>
+                <a href="@Url.Action("Index", "Home")" style="color:#ffd333; font-weight:bold; text-decoration:none;">Start Shopping</a>
+            </div>
+        }
+    </div>
+</main>

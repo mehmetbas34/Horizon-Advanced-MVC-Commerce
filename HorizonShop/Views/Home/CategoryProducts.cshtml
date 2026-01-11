@@ -1,0 +1,51 @@
+﻿@model IEnumerable<HorizonShop.Models.Product>
+
+@{
+    ViewBag.Title = ViewBag.CategoryName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        <h1>@ViewBag.CategoryName</h1>
+        <p>Browse products in this category.</p>
+        <div style="width: 60px; height: 3px; background-color: #ffd333; margin-top: 10px;"></div>
+    </section>
+
+    <section>
+        @if (Model != null && Model.Any())
+        {
+            <div class="grid-container">
+                @foreach (var item in Model)
+                {
+                    <div class="card" onclick="location.href='@Url.Action("Details", "Products", new { id = item.ProductId })'" style="cursor:pointer; transition: all 0.3s ease;">
+                        <div style="height:200px; display:flex; align-items:center; justify-content:center; margin-bottom:15px;">
+                            <img src="@(string.IsNullOrEmpty(item.ImageUrl) ? Url.Content("~/Content/images/product/electronic-devices.png") : Url.Content("~/Content/" + item.ImageUrl))"
+                                 alt="@item.Name" style="max-height:100%; max-width:100%; object-fit:contain;">
+                        </div>
+
+                        <h3>@item.Name</h3>
+                        <p class="price">$@item.Price</p>
+
+                        <a href="@Url.Action("AddToCart", "Cart", new { productId = item.ProductId })" class="add-to-cart-btn" style="text-decoration:none; display:inline-block; margin-top:10px; background:#ffd333; padding:10px 20px; color:#3d464d;">
+                            Add to Cart
+                        </a>
+
+                        <div style="margin-top:10px;">
+                            <a href="@Url.Action("Details", "Products", new { id = item.ProductId })" style="font-size:12px; color:#666;">View Details</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center; padding:60px; border:1px solid #eee; border-radius:8px;">
+                <h3>No products found in this category.</h3>
+                <a href="@Url.Action("Index", "Home")" class="btn-submit" style="text-decoration:none; display:inline-block; width:auto; padding:10px 20px; margin-top:15px;">Back to Home</a>
+            </div>
+        }
+    </section>
+
+</main>

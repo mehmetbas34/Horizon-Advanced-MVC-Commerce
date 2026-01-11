@@ -1,0 +1,39 @@
+﻿@model HorizonShop.Models.Category
+
+@{
+    ViewBag.Title = "Delete Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <section class="page-hero" style="text-align: center;">
+        <h1>Delete Category</h1>
+    </section>
+
+    <section class="contact-grid" style="justify-content: center; display:flex;">
+        <div class="contact-card crud-form-container" style="text-align:center; border-top: 4px solid #dc3545;">
+
+            <i class="fas fa-exclamation-triangle" style="font-size: 50px; color: #dc3545; margin-bottom: 20px;"></i>
+
+            <h3>Are you sure?</h3>
+            <p class="card-subtitle">You are about to delete the following category:</p>
+
+            <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <h2 style="margin: 0; color: #3d464d;">@Html.DisplayFor(model => model.Name)</h2>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color" style="margin-top: 30px; display:flex; gap:10px; justify-content:center;">
+                    <input type="submit" value="Yes, Delete it" class="btn-submit" style="background-color: #dc3545; border-color: #dc3545; color: white;" />
+
+                    <a href="@Url.Action("Index")" class="btn-submit" style="background-color: #eee; color: #333; text-decoration: none; padding-top: 12px;">
+                        Cancel
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+</main>

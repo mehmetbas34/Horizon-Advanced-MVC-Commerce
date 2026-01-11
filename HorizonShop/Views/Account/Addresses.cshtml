@@ -1,0 +1,79 @@
+﻿@model HorizonShop.Models.User
+
+@{
+    ViewBag.Title = "My Addresses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        <h1>My Addresses</h1>
+        <p>Manage your shipping and billing details.</p>
+    </section>
+
+    <section class="contact-grid justify-center d-flex">
+        <div class="contact-card crud-form-container" style="width:100%; max-width:700px;">
+            <h2>Update Address Details</h2>
+            <hr class="product-divider" />
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert-success mb-20 p-15 border-rounded">
+                    <i class="fas fa-check-circle"></i> @ViewBag.Message
+                </div>
+            }
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="form-label">Country / Region</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Country, new { @class = "form-control-custom", placeholder = "e.g. Turkey" })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger-custom" })
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-20 mb-15">
+                        <div class="flex-1">
+                            <label class="form-label">Town / City</label>
+                            @Html.TextBoxFor(model => model.City, new { @class = "form-control-custom", placeholder = "e.g. Istanbul" })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger-custom" })
+                        </div>
+                        <div class="flex-1">
+                            <label class="form-label">Zip Code</label>
+                            @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control-custom", placeholder = "34000" })
+                            @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger-custom" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Street Address</label>
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Address, new { @class = "form-control-custom", rows = "3", placeholder = "Full address..." })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger-custom" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-15">
+                        <label class="form-label">Phone Number</label>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Phone, new { @class = "form-control-custom", placeholder = "+90..." })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger-custom" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-30">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save Changes" class="btn-submit w-100" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</main>

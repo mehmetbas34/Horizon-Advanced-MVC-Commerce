@@ -1,0 +1,26 @@
+﻿@model int
+@{
+    ViewBag.Title = "Order Confirmed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <div class="contact-card" style="text-align: center; padding: 60px;">
+        <i class="fas fa-check-circle" style="font-size: 80px; color: #28a745; margin-bottom: 20px;"></i>
+        <h1 style="color: #3d464d;">Thank You!</h1>
+        <h3 style="color: #666;">Your order has been placed successfully.</h3>
+
+        <p style="font-size: 18px; margin: 20px 0;">
+            Order Number: <strong>#@Model</strong>
+        </p>
+
+        <div style="margin-top: 30px;">
+            <a href="@Url.Action("Orders", "Account")" class="btn-submit" style="text-decoration: none; padding: 12px 30px; margin-right: 10px;">
+                View My Orders
+            </a>
+            <a href="@Url.Action("Index", "Home")" style="text-decoration: none; color: #666; font-weight: bold;">
+                Continue Shopping
+            </a>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,62 @@
+﻿@model HorizonShop.Models.Product
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+
+    <section class="page-hero">
+        <h1>@Html.DisplayFor(model => model.Name)</h1>
+        <p>Category: <a href="@Url.Action("Index", "Home", new { categoryId = Model.CategoryId })" style="color:#ffd333; text-decoration:none;">@Html.DisplayFor(model => model.Category.Name)</a></p>
+    </section>
+
+    <section class="contact-grid">
+
+        <div class="contact-card text-center">
+            <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? Url.Content("~/Content/images/product/electronic-devices.png") : Url.Content("~/Content/" + Model.ImageUrl))"
+                 alt="@Model.Name"
+                 class="product-img-large">
+        </div>
+
+        <div class="contact-card">
+            <h2 class="mt-0">@Html.DisplayFor(model => model.Name)</h2>
+
+            <h3 class="product-price-tag">
+                $@Html.DisplayFor(model => model.Price)
+            </h3>
+
+            <hr class="product-divider">
+
+            <h4 class="product-sub-title">@Html.DisplayNameFor(model => model.Description)</h4>
+
+            <p class="product-desc-text">
+                @Html.DisplayFor(model => model.Description)
+            </p>
+
+            <hr class="product-divider">
+
+            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("productId", Model.ProductId)
+
+                <div class="product-action-row">
+
+                    <div class="qty-box">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" name="quantity" value="1" min="1" max="50" class="form-control-custom qty-input">
+                    </div>
+
+                    <div style="flex:1;">
+                        <button type="submit" class="btn-submit btn-cart-custom">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
+</main>

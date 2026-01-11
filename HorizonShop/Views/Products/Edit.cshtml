@@ -1,0 +1,101 @@
+﻿@model HorizonShop.Models.Product
+
+@{
+    ViewBag.Title = "Edit Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main class="container con-1">
+    <section class="page-hero">
+        <h1>Manage Products</h1>
+    </section>
+
+    <section class="contact-grid" style="justify-content: center; display:flex;">
+        <div class="contact-card crud-form-container">
+            <h2>Edit Product</h2>
+            <p class="card-subtitle">Update the product details below.</p>
+            <hr />
+
+            @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ProductId)
+
+                    <div class="form-group">
+                        <label class="form-label">Product Name</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control-custom" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control-custom" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Price ($)</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control-custom" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Product Image</label>
+                        <div class="col-md-10">
+                            <input type="file" name="ImageFile" class="form-control-custom" />
+                            @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
+
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <div style="margin-top:10px;">
+                                    <p style="font-size:12px; margin-bottom:5px; color:#666;">Current Image:</p>
+                                    <img src="~/Content/@Model.ImageUrl" width="150" style="border: 1px solid #eee; padding: 5px; border-radius:4px;" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top:15px;">
+                        <div class="col-md-10" style="display:flex; align-items:center; gap:10px;">
+                            @Html.EditorFor(model => model.IsFeatured)
+                            <label class="form-label" style="margin:0; cursor:pointer;">Show on Homepage (Featured)</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <div class="col-md-10">
+                            @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control-custom" })
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" style="margin-top:20px;">
+                            <input type="submit" value="Save Changes" class="btn-submit" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="@Url.Action("Index")" class="action-link edit">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
